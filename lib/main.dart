@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:solarium/pages/report.dart';
+import 'package:solarium/pages/entry.dart';
 import 'package:solarium/themes/solarium_theme.dart';
+import 'userReports.dart' as globals;
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: solariumTheme,
-      home: const Report(),
+      home: const Entry(),
     );
   }
 }

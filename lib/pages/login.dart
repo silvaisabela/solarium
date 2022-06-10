@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solarium/components/solarium_button.dart';
 import 'package:solarium/components/solarium_input.dart';
+import 'package:solarium/pages/home.dart';
 
 const diarium = 'assets/images/diarium.svg';
 const star = 'assets/images/star.svg';
@@ -50,12 +51,21 @@ class Login extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 40.0),
-                const SolariumInput(hintText: 'Usuário'),
-                const SolariumInput(hintText: 'Senha'),
+                SolariumInput(hintText: 'Usuário'),
+                SolariumInput(hintText: 'Senha'),
                 const Spacer(),
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: SolariumButton(text: 'Entrar', onPressed: () {}),
+                  child: SolariumButton(
+                      text: 'Entrar',
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Home(),
+                          ),
+                        );
+                      }),
                 )
               ],
             ),

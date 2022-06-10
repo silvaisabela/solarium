@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:solarium/components/solarium_button.dart';
-
+import 'package:solarium/models/Report.dart';
+import 'package:solarium/pages/home.dart';
+import '../userReports.dart' as globals;
 import '../components/solarium_input.dart';
 
-class Report extends StatelessWidget {
-  const Report({Key? key}) : super(key: key);
+class Reports extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _Reports();
+  }
+}
+
+class _Reports extends State<Reports> {
+  TextEditingController reportDateController = TextEditingController();
+  FocusNode reportDateFocus = FocusNode();
+
+  TextEditingController reportTextController = TextEditingController();
+  FocusNode reportTextFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +37,17 @@ class Report extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
           child: Column(
             children: [
-              const SolariumInput(hintText: 'Dia do relatório'),
+              SolariumInput(
+                hintText: 'Dia do relatório',
+                focusNode: reportDateFocus,
+                userInputController: reportDateController,
+              ),
               const SizedBox(height: 20.0),
-              const SolariumInput(
+              SolariumInput(
                 hintText: 'Escreva algo',
                 lines: 6,
+                focusNode: reportTextFocus,
+                userInputController: reportTextController,
               ),
               const SizedBox(height: 20.0),
               SizedBox(
@@ -43,7 +62,18 @@ class Report extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 child: SolariumButton(
                   text: 'Salvar',
-                  onPressed: () {},
+                  onPressed: () {
+                    globals.reports.add(Report(
+                        date: reportDateController.text,
+                        text: reportTextController.text,
+                        img: globals.urlTeste));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Home(),
+                      ),
+                    );
+                  },
                   type: ButtonType.secondary,
                 ),
               )
