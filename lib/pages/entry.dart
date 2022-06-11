@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solarium/components/solarium_button.dart';
@@ -8,9 +10,29 @@ const diarium = 'assets/images/diarium.svg';
 const star = 'assets/images/star.svg';
 const astronaut = 'assets/images/astronaut.svg';
 const background = 'assets/images/background.png';
+const rocket = 'assets/images/rocket.svg';
 
-class Entry extends StatelessWidget {
+class Entry extends StatefulWidget {
   const Entry({Key? key}) : super(key: key);
+
+  @override
+  State<Entry> createState() => _EntryState();
+}
+
+class _EntryState extends State<Entry> {
+  String imagePath = astronaut;
+
+  @override
+  void initState() {
+    Timer.periodic(const Duration(seconds: 20), (timer) => {changeImage()});
+    super.initState();
+  }
+
+  void changeImage() {
+    setState(() {
+      imagePath = imagePath == astronaut ? rocket : astronaut;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +72,7 @@ class Entry extends StatelessWidget {
                 const Spacer(),
                 Center(
                   child: SvgPicture.asset(
-                    astronaut,
+                    imagePath,
                     semanticsLabel: 'A red up arrow',
                   ),
                 ),

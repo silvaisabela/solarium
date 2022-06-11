@@ -13,7 +13,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+          padding: const EdgeInsets.only(top: 50, left: 30, right: 30),
           child: Column(
             children: [
               Row(
@@ -24,37 +24,39 @@ class Home extends StatelessWidget {
                   ),
                   const Spacer(),
                   SolariumButtonIcon(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => const AlertDialog(
-                            title: Text('Quem somos?'),
-                            content: Text(
-                                'Nome: Isabela da Silva RM: 84785   Nome: Renato Lourenço RM: 84428 Turma: 3ºSIR'),
-                          ),
-                        );
-                      },
-                      icon: Icons.favorite)
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => const AlertDialog(
+                          title: Text('Quem somos?'),
+                          content: Text(
+                              'Nome: Isabela da Silva RM: 84785   Nome: Renato Lourenço RM: 84428 Turma: 3ºSIR'),
+                        ),
+                      );
+                    },
+                    icon: Icons.favorite,
+                  )
                 ],
               ),
               const SizedBox(height: 15),
-              SizedBox(
-                  child: Column(
-                children: <Widget>[
-                  for (var item in globals.reports)
-                    Column(
-                      children: [
-                        ReportCard(
-                          reportDate: item.date,
-                          reportImg: item.img,
-                          reportText: item.text,
-                        ),
-                        const SizedBox(height: 15)
-                      ],
-                    )
-                ],
-              )),
-              const Spacer(),
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  itemCount: globals.reports.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var item = globals.reports[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: ReportCard(
+                        reportDate: item.date,
+                        reportText: item.text,
+                        reportImg:
+                            "https://picsum.photos/id/${item.imageId}/1000/600?grayscale",
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),

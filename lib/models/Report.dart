@@ -1,7 +1,7 @@
 class Report {
   String date;
   String text;
-  String img;
+  String imageId;
 
-  Report({required this.date, required this.text, required this.img});
+  Report({required this.date, required this.text, required this.imageId});
 }
